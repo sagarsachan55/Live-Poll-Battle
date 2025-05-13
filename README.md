@@ -1,70 +1,96 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Live Poll Room - Real-Time Voting Application
 
-## Available Scripts
+A real-time poll application where users can create or join rooms, ask questions, vote on options, and see live updates using **React** and **Socket.IO**.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Join or Create Poll Rooms** with a unique 8-digit room code
+- **Create a Poll** with a question and multiple dynamic options
+- **Real-Time Voting** using WebSockets (Socket.IO)
+- **User Management**: Track participants in each room
+- **Auto Room Expiry**: Poll room expires after 60 seconds
+- **Socket.IO Integration** between client and server
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Setup Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Backend (Node.js + Express + Socket.IO)
 
-### `npm run build`
+1. Navigate to the server folder:
+   ```bash
+   cd server
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Start the server:
+   ```bash
+   node index.js
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Server will run at:  
+   ```
+   http://localhost:3005
+   ```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Frontend (React)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Navigate to the client folder:
+   ```bash
+   cd client
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-## Learn More
+4. App runs at:
+   ```
+   http://localhost:3000
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Room Management & Vote State Sharing
 
-### Code Splitting
+- When a user **creates a poll**, a unique `roomCode` is generated.
+- The server stores room data in-memory:
+  ```js
+  rooms[roomCode] = {
+    question: string,
+    options: [{ text: string, votes: number }],
+    users: [{ username: string, vote: number }]
+  }
+  ```
+- On `join`, the user is added to the room's user list and receives the current poll state.
+- When a vote is cast, the server updates the vote count and broadcasts updated poll data via `poll-update` to all clients in that room.
+- After **60 seconds**, the room is automatically deleted using `setTimeout`, and all connected clients receive a `room-expired` event.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Frontend**: React, JavaScript, HTML, CSS
+- **Backend**: Node.js, Express.js, Socket.IO
+- **Real-time communication**: WebSockets via Socket.IO
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Author
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Created by **Sagar Sachan** 

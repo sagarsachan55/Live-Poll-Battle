@@ -1,0 +1,137 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+}
+
+.room-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.room-code,
+.username {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.question {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #222;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.option {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background-color: #d1d5db; /* default gray */
+  color: #111827;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 500;
+  border: 2px solid transparent;
+}
+
+.option:hover {
+  background-color: #e5e7eb;
+}
+
+.option.selected {
+  background-color: #d1fae5; /* light green */
+  color: #065f46;
+  border: 2px solid #10b981;
+}
+
+.results {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.result-bar-wrapper {
+  margin-bottom: 1rem;
+}
+
+.result-label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.result-bar {
+  background-color: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 24px;
+  transition: background-color 0.3s;
+}
+
+.result-bar.voted {
+  background-color: #c6f6d5;
+}
+
+.result-fill {
+  background-color: #48bb78;
+  color: white;
+  height: 100%;
+  text-align: right;
+  padding-right: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 24px;
+  transition: width 0.5s ease;
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
