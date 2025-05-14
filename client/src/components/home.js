@@ -30,7 +30,7 @@ function Home() {
     socketRef.current.on("room-created", (userName,code)=>{
       navigate('/room', {
         state:{
-          roomCode: code, userName
+          roomCode: code, username: userName
         },
       });
     });
