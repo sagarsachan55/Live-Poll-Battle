@@ -5,9 +5,15 @@ const {Server} = require('socket.io');
 
 const app = express();
 const server = createServer(app);
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://live-poll-battle-one.vercel.app"
+];
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", 
+    origin: allowedOrigins, 
     methods: ["GET", "POST"]
   },
   connectionStateRecovery: {}
@@ -72,6 +78,7 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3005, () => {
-  console.log("WebSocket server running on ws://localhost:3005");
+const PORT = process.env.PORT || 3005; 
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
