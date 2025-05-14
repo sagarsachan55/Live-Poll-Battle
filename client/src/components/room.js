@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import '../App.css';
 
-const SERVER_URL = process.env.BACKEND_URL; 
+const SERVER_URL = "https://live-poll-battle-server.onrender.com"; 
 
 function Room() {
   const location = useLocation();
@@ -26,7 +26,7 @@ function Room() {
 
     socketRef.current.on("room-expired", () => {
       alert("This room has expired.");
-      navigate('/');
+      // navigate('/');
     });
 
     socketRef.current.on("not-exist", ()=>{
@@ -35,7 +35,7 @@ function Room() {
     });
 
     socketRef.current.on("join", (roomCode, pollData)=>{
-      console.log(roomCode, pollData);
+      // console.log(roomCode, pollData);
       setQuestion(pollData.question);
       setOptions(pollData.options);
       setVote(pollData.users[username]+1)
@@ -44,7 +44,6 @@ function Room() {
     });
 
     socketRef.current.on("poll-update", (pollData)=>{
-      console.log(pollData);
       setOptions(pollData.options);
       const total = pollData.options.reduce((sum, o) => sum + o.votes, 0);
       setTotalVotes(total);
@@ -66,8 +65,7 @@ function Room() {
       socketRef.current.emit("update-vote", roomCode, username, index);
     }
   }
-  console.log(options);
-  console.log(vote);
+  console.log(username);
   return(
     <div className="room-container">
       <h2 className="room-code">Room Code: {roomCode}</h2>

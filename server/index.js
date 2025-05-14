@@ -27,7 +27,7 @@ function generateRoomCode() {
 };
 
 io.on('connection', (socket) => {
-  console.log('A user connected');
+  // console.log('A user connected');
 
   socket.on("join", (roomCode, username)=>{
     // console.log(roomCode, username);
@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
     };
 
     socket.join(roomCode);
-    socket.emit("room-created", roomCode);
+    socket.emit("room-created", username, roomCode);
     // console.log(roomCode);
     setTimeout(() => {
       delete rooms[roomCode];

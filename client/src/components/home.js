@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 
-const SERVER_URL = process.env.BACKEND_URL ; 
+const SERVER_URL = "https://live-poll-battle-server.onrender.com"; 
 
 function Home() {
   const [username, setUsername] = useState("")
@@ -27,11 +27,10 @@ function Home() {
     
     if (!socketRef.current) return;
   
-    socketRef.current.on("room-created", (code)=>{
-      // alert("room created");
+    socketRef.current.on("room-created", (userName,code)=>{
       navigate('/room', {
         state:{
-          roomCode: code, username
+          roomCode: code, userName
         },
       });
     });
@@ -77,7 +76,7 @@ function Home() {
 
     socketRef.current.emit("create-room", username, question, newOptions);
   }
-  // console.log(username)
+  
   return (
     <div className="home-container">
       <a>Enter your username </a>
