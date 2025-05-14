@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 
-const SERVER_URL = 'http://localhost:3005'; 
+const SERVER_URL = process.env.BACKEND_URL || "ws://localhost:3005"; 
 
 function Home() {
   const [username, setUsername] = useState("")
@@ -74,7 +74,7 @@ function Home() {
       alert("Please enter username, question, and at least 2 valid options.");
       return;
     }
-    
+
     socketRef.current.emit("create-room", username, question, newOptions);
   }
   // console.log(username)
