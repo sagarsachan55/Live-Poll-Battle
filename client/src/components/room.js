@@ -58,9 +58,11 @@ function Room() {
     if(vote === 0){
       setVote(index+1);
       setTotalVotes(totalVotes+1);
-      let newOptions = options;
-      newOptions[index].votes++;
+      const newOptions = options.map((opt, i) =>
+        i === index ? { ...opt, votes: opt.votes + 1 } : opt
+      );
       setOptions(newOptions);
+
 
       socketRef.current.emit("update-vote", roomCode, username, index);
     }

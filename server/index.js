@@ -27,16 +27,12 @@ function generateRoomCode() {
 };
 
 io.on('connection', (socket) => {
-  // console.log('A user connected');
 
   socket.on("join", (roomCode, username)=>{
-    // console.log(roomCode, username);
     socket.join(roomCode);
-    // let newPollData = rooms[roomCode];
     if(rooms[roomCode]){
       if(!(username in rooms[roomCode].users)) rooms[roomCode].users[username] = -1;
       socket.emit("join", roomCode, rooms[roomCode]);
-      // socket.to(roomCode).emit("poll-update", rooms[roomCode]);
     }
     else{
       socket.emit("not-exist");
@@ -45,14 +41,14 @@ io.on('connection', (socket) => {
   });
 
   socket.on("update-vote", (roomCode, username, vote)=>{
+    socket.join(roomCode);
     rooms[roomCode].users[username] = vote;
     rooms[roomCode].options[vote].votes++;
-    socket.to(roomCode).emit("poll-update", rooms[roomCode]);
+    socket.in(roomCode).emit("poll-update", rooms[roomCode]);
   });
 
   socket.on("create-room", (username, question, options)=>{
 
-    // console.log(username, question, options);
     let roomCode = generateRoomCode();
     while (rooms[roomCode]) {
       roomCode = generateRoomCode();
@@ -66,7 +62,6 @@ io.on('connection', (socket) => {
 
     socket.join(roomCode);
     socket.emit("room-created", username, roomCode);
-    // console.log(roomCode);
     setTimeout(() => {
       delete rooms[roomCode];
       io.to(roomCode).emit("room-expired");
