@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import '../App.css';
 
-const SERVER_URL = process.env.BACKEND_URL || "ws://localhost:3005"; 
+const SERVER_URL = "https://live-poll-battle-server.onrender.com" || "ws://localhost:3005"; 
 
 function Room() {
   const location = useLocation();
