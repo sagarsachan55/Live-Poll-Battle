@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 
-const SERVER_URL = process.env.BACKEND_URL || "ws://localhost:3005"; 
+const SERVER_URL = process.env.BACKEND_URL ; 
 
 function Home() {
   const [username, setUsername] = useState("")
